@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "[Git hook] Fixing the code..."
+dart fix --apply
+
+echo "[Git hook] Formatting the code..."
+flutter format ./lib
+
+echo "[Git hook] Adding the changes..."
+git add lib

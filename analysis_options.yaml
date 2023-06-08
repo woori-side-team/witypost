@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude: [ scripts/**.dart, lib/**.freezed.dart, lib/**.g.dart, lib/**di.config.dart ]
+
+linter:
+  rules:
+    prefer_single_quotes: true
+    require_trailing_commas: true
