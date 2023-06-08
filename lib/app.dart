@@ -5,7 +5,7 @@ import 'package:wity_post/common/routes.dart';
 import 'package:wity_post/presentation/providers/theme_provider.dart';
 import 'package:wity_post/presentation/widgets/app_background.dart';
 import 'package:wity_post/presentation/widgets/custom_app_bar.dart';
-import 'package:wity_post/presentation/widgets/post_page.dart';
+import 'package:wity_post/presentation/widgets/posts_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -30,12 +30,12 @@ class App extends StatelessWidget {
 }
 
 final _router = GoRouter(
-  initialLocation: '/post',
+  initialLocation: '/',
   routes: [
     GoRoute(
       name: RouteNames.post,
-      path: '/post',
-      pageBuilder: (context, state) => _CustomPage(body: const PostPage()),
+      path: '/',
+      pageBuilder: (context, state) => _CustomPage(body: const PostsPage()),
     )
   ],
 );
