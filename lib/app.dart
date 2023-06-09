@@ -12,19 +12,35 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final customThemeData = ThemeData(
-      fontFamily: 'Pretendard',
-    );
-
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (providersContext) => ThemeProvider())
       ],
-      child: MaterialApp.router(
-        title: 'wity',
-        theme: customThemeData,
-        routerConfig: _router,
+      child: const _ThemedContent(),
+    );
+  }
+}
+
+class _ThemedContent extends StatelessWidget {
+  const _ThemedContent();
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
+    final customThemeData = ThemeData(
+      fontFamily: 'Pretendard',
+      scrollbarTheme: const ScrollbarThemeData().copyWith(
+        thumbColor: MaterialStateProperty.all(
+          themeProvider.primaryColor.withOpacity(0.5),
+        ),
       ),
+    );
+
+    return MaterialApp.router(
+      title: 'wity',
+      theme: customThemeData,
+      routerConfig: _router,
     );
   }
 }
