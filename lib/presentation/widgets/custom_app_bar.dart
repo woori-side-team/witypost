@@ -63,9 +63,8 @@ class _ThemeButton extends StatelessWidget {
 }
 
 class _TalkButton extends StatelessWidget {
-  static final Uri _talkURL = Uri.parse(
-    'https://www.kakaocorp.com/page/service/service/KakaoTalk?lang=ko',
-  );
+  static final Uri _talkURLInfo =
+      Uri.parse('https://open.kakao.com/o/g7XAPWof');
 
   const _TalkButton();
 
@@ -73,7 +72,7 @@ class _TalkButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return _AppBarButton(
       onPressed: () async {
-        await launchUrl(_talkURL);
+        await launchUrl(_talkURLInfo);
       },
       iconData: Icons.people,
     );

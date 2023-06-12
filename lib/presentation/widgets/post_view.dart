@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wity_post/presentation/providers/theme_provider.dart';
 
 class Post {
@@ -75,7 +76,10 @@ class PostView extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final urlInfo = Uri.parse(url);
+                    await launchUrl(urlInfo);
+                  },
                   icon: const Icon(
                     Icons.open_in_new,
                     size: 16,
