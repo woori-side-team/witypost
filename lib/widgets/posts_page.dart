@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wity_post/presentation/widgets/post_view.dart';
+import 'package:wity_post/widgets/post_view.dart';
 
 class PostsPage extends StatelessWidget {
   const PostsPage({super.key});
@@ -24,7 +24,7 @@ class PostsPage extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 800),
           child: Column(
-            children: dummyURLs.map((url) => PostView(url: url)).toList(),
+            children: dummyURLs.map((url) => PostView(postUrl: url)).toList(),
           ),
         ),
       ),

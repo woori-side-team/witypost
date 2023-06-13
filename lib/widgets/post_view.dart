@@ -1,29 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:metadata_fetch/metadata_fetch.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wity_post/presentation/providers/theme_provider.dart';
-
-class Post {
-  final String url;
-  final String title;
-  final String description;
-  final String imageURL;
-
-  const Post({
-    required this.url,
-    required this.title,
-    required this.imageURL,
-    required this.description,
-  });
-}
+import 'package:wity_post/providers/theme_provider.dart';
+import 'package:wity_post/repositories/api_repository.dart';
 
 class PostView extends StatelessWidget {
-  final String url;
+  final String postUrl;
 
   const PostView({
     super.key,
-    required this.url,
+    required this.postUrl,
   });
 
   @override
@@ -50,17 +36,13 @@ class PostView extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: FutureBuilder(
-        future: MetadataFetch.extract(url),
+        future: apiRepository.getPost(postUrl),
         builder: (futureBuilderContext, snapshot) {
-          final data = snapshot.data;
+          final postModel = snapshot.data;
 
-          if (data == null) {
+          if (postModel == null) {
             return const Text('Loading...');
           }
-
-          final title = data.title ?? 'Unknown title';
-          final imageURL = data.image;
-          final description = data.description ?? '';
 
           final List<Widget> items = [];
 
@@ -68,7 +50,7 @@ class PostView extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  title,
+                  postModel.title,
                   style: TextStyle(
                     color: themeProvider.primaryColor,
                     fontSize: 18,
@@ -77,7 +59,7 @@ class PostView extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () async {
-                    final urlInfo = Uri.parse(url);
+                    final urlInfo = Uri.parse(postUrl);
                     await launchUrl(urlInfo);
                   },
                   icon: const Icon(
@@ -91,27 +73,31 @@ class PostView extends StatelessWidget {
 
           items.add(const _Separator());
 
-          if (imageURL != null) {
+          if (postModel.imageUrl != null) {
             items.add(
               Container(
                 width: double.infinity,
                 alignment: Alignment.topCenter,
-                child: Image.network(imageURL),
+                child: Image.network(
+                  apiRepository.getForwardUrl(postModel.imageUrl!),
+                ),
               ),
             );
 
             items.add(const _Separator());
           }
 
-          items.add(
-            Text(
-              '$description...',
-              style: TextStyle(
-                color: themeProvider.primaryColor,
-                fontSize: 16,
+          if (postModel.description != null) {
+            items.add(
+              Text(
+                '${postModel.description}...',
+                style: TextStyle(
+                  color: themeProvider.primaryColor,
+                  fontSize: 16,
+                ),
               ),
-            ),
-          );
+            );
+          }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,

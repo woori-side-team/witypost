@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wity_post/presentation/providers/theme_provider.dart';
+import 'package:wity_post/providers/theme_provider.dart';
 
 class AppBackground extends StatelessWidget {
   const AppBackground({super.key});

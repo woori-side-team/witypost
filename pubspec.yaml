@@ -18,6 +18,10 @@ dependencies:
   provider: ^6.0.5
   url_launcher: ^6.1.11
   metadata_fetch: ^0.4.1
+  shelf: ^1.4.1
+  shelf_router: ^1.1.4
+  shelf_static: ^1.1.2
+  dio: ^5.2.1+1
 
 dev_dependencies:
   flutter_test:

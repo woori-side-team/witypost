@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
-import 'package:wity_post/presentation/providers/theme_provider.dart';
+import 'package:wity_post/providers/theme_provider.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({super.key});

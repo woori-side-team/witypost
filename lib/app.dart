@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:wity_post/common/routes.dart';
-import 'package:wity_post/presentation/providers/theme_provider.dart';
-import 'package:wity_post/presentation/widgets/app_background.dart';
-import 'package:wity_post/presentation/widgets/custom_app_bar.dart';
-import 'package:wity_post/presentation/widgets/posts_page.dart';
+import 'package:wity_post/providers/theme_provider.dart';
+import 'package:wity_post/widgets/app_background.dart';
+import 'package:wity_post/widgets/custom_app_bar.dart';
+import 'package:wity_post/widgets/posts_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -49,7 +49,7 @@ final _router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
-      name: RouteNames.post,
+      name: routeNames.post,
       path: '/',
       pageBuilder: (context, state) => _CustomPage(body: const PostsPage()),
     )
