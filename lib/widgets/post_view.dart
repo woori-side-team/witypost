@@ -106,7 +106,7 @@ class _ImageView extends StatelessWidget {
     return Container(
       width: double.infinity,
       alignment: Alignment.topCenter,
-      child: Image.network(imageUrl),
+      child: Image(image: AssetImage(imageUrl)),
     );
   }
 }

@@ -33,6 +33,7 @@
 
 현재는 구글 파이어베이스(Firebase)를 사용합니다.
 - [링크](https://docs.flutter.dev/deployment/web#deploying-to-firebase-hosting)를 참고해주세요.
+- 배포할 때 `firebase deploy`를 돌리기 전에 `flutter clean`을 한번 돌려주길 추천합니다. 그렇지 않으면 플러터 웹의 버그로 필요 파일이 종종 생성 안될때가 있습니다.
 
 ## 폴더 구조
 
