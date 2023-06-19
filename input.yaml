@@ -1,0 +1,14 @@
+# 글들의 링크 및 추가 정보 목록입니다.
+# 글 링크(url)를 추가하고 update.dart를 실행해주세요.
+# 제목, 이미지, 설명은 글에서 자동 추출됩니다. 제목을 직접 붙이고 싶으면 url 아래에 title을 추가해주세요.
+posts:
+  - url: https://zero-base.co.kr/event/media_BE_school_roadmap
+  - url: https://velog.io/@lky5697/the-const-deception
+  - url: https://stackoverflow.com/questions/1273108/how-do-i-git-rm-a-file-without-deleting-it-from-disk
+    title: 파일을 내 컴퓨터에서 지우지 않고 git 상에서만 지우기
+  - url: https://velog.io/@baby_dev/프론트엔드-cicd-빌드-속도-최적화-feat.-docker-multi-staging
+  - url: https://devconnected.com/how-to-remove-files-from-git-commit/
+  - url: https://subicura.com/k8s/prepare/yaml.html#기본문법
+    title: YAML 문법 알아보기
+  - url: https://engineering.linecorp.com/ko/blog/line-develoers-meetup-2
+  - url: https://velog.io/@surim014/building-a-blog-with-Next.js-13-and-React-Server-Components

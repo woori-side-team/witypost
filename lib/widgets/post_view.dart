@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wity_post/common/posts.dart';
-import 'package:wity_post/providers/theme_provider.dart';
+import 'package:witypost/common/posts.dart';
+import 'package:witypost/providers/theme_provider.dart';
 
 class PostView extends StatelessWidget {
   final PostInfo postInfo;
@@ -17,56 +17,21 @@ class PostView extends StatelessWidget {
     final themeProvider = context.watch<ThemeProvider>();
 
     final List<Widget> items = [];
+    final title = postInfo.title ?? 'Post';
+    final postUrl = postInfo.postUrl;
+    final imageUrl = postInfo.imageUrl;
+    final description = postInfo.description;
 
-    items.add(
-      Row(
-        children: [
-          Text(
-            postInfo.title ?? 'New post',
-            style: TextStyle(
-              color: themeProvider.primaryColor,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          IconButton(
-            onPressed: () async {
-              final urlInfo = Uri.parse(postInfo.postUrl);
-              await launchUrl(urlInfo);
-            },
-            icon: const Icon(
-              Icons.open_in_new,
-              size: 16,
-            ),
-          )
-        ],
-      ),
-    );
-
+    items.add(_TitleView(title: title, postUrl: postUrl));
     items.add(const _Separator());
 
-    if (postInfo.imageUrl != null) {
-      items.add(
-        Container(
-          width: double.infinity,
-          alignment: Alignment.topCenter,
-          child: Image.network(postInfo.imageUrl!),
-        ),
-      );
-
+    if (imageUrl != null) {
+      items.add(_ImageView(imageUrl: imageUrl));
       items.add(const _Separator());
     }
 
-    if (postInfo.description != null) {
-      items.add(
-        Text(
-          '${postInfo.description}...',
-          style: TextStyle(
-            color: themeProvider.primaryColor,
-            fontSize: 16,
-          ),
-        ),
-      );
+    if (description != null) {
+      items.add(_DescriptionView(description: description));
     }
 
     return Container(
@@ -91,6 +56,76 @@ class PostView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: items,
+      ),
+    );
+  }
+}
+
+class _TitleView extends StatelessWidget {
+  final String title;
+  final String postUrl;
+
+  const _TitleView({required this.title, required this.postUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
+    return Row(
+      children: [
+        Text(
+          title.trim(),
+          style: TextStyle(
+            color: themeProvider.primaryColor,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        IconButton(
+          onPressed: () async {
+            final urlInfo = Uri.parse(postUrl);
+            await launchUrl(urlInfo);
+          },
+          icon: const Icon(
+            Icons.open_in_new,
+            size: 16,
+          ),
+        )
+      ],
+    );
+  }
+}
+
+class _ImageView extends StatelessWidget {
+  final String imageUrl;
+
+  const _ImageView({required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      alignment: Alignment.topCenter,
+      child: Image.network(imageUrl),
+    );
+  }
+}
+
+class _DescriptionView extends StatelessWidget {
+  final String description;
+
+  const _DescriptionView({required this.description});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+    final tail = description.endsWith('...') ? '' : '...';
+
+    return Text(
+      '${description.trim()}$tail',
+      style: TextStyle(
+        color: themeProvider.primaryColor,
+        fontSize: 16,
       ),
     );
   }

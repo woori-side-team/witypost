@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:wity_post/common/routes.dart';
-import 'package:wity_post/providers/theme_provider.dart';
-import 'package:wity_post/widgets/app_background.dart';
-import 'package:wity_post/widgets/custom_app_bar.dart';
-import 'package:wity_post/widgets/posts_page.dart';
+import 'package:witypost/common/routes.dart';
+import 'package:witypost/providers/theme_provider.dart';
+import 'package:witypost/widgets/app_background.dart';
+import 'package:witypost/widgets/custom_app_bar.dart';
+import 'package:witypost/widgets/posts_page.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

@@ -1,4 +1,4 @@
-package com.github.woorisideteam.wity_post
+package com.example.witypost
 
 import io.flutter.embedding.android.FlutterActivity
 

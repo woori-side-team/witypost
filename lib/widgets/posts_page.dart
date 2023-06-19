@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wity_post/common/posts.dart';
-import 'package:wity_post/widgets/post_view.dart';
+import 'package:witypost/common/posts.dart';
+import 'package:witypost/widgets/post_view.dart';
 
 class PostsPage extends StatelessWidget {
   const PostsPage({super.key});

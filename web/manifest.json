@@ -1,11 +1,11 @@
 {
-    "name": "wity_post",
-    "short_name": "wity_post",
+    "name": "witypost",
+    "short_name": "witypost",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Collection of the articles",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
