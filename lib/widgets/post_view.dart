@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -34,29 +36,69 @@ class PostView extends StatelessWidget {
       items.add(_DescriptionView(description: description));
     }
 
-    return Container(
-      alignment: Alignment.topLeft,
-      width: double.infinity,
-      margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        color: themeProvider.backgroundColor,
-        border: Border.all(
-          color: themeProvider.primaryColor.withOpacity(0.4),
-          width: 1,
+    return _FadeIn(
+      child: Container(
+        alignment: Alignment.topLeft,
+        width: double.infinity,
+        constraints: const BoxConstraints(maxWidth: 800),
+        margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          border: Border.all(
+            color: themeProvider.primaryColor.withOpacity(0.4),
+            width: 1,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: themeProvider.primaryColor.withOpacity(0.2),
+              blurRadius: 6,
+              blurStyle: BlurStyle.outer,
+            )
+          ],
+          borderRadius: BorderRadius.circular(8),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: themeProvider.primaryColor.withOpacity(0.2),
-            offset: const Offset(1, 2),
-          )
-        ],
-        borderRadius: BorderRadius.circular(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: items,
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: items,
-      ),
+    );
+  }
+}
+
+class _FadeIn extends StatefulWidget {
+  final Widget child;
+
+  const _FadeIn({required this.child});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _FadeInState();
+  }
+}
+
+class _FadeInState extends State<_FadeIn> {
+  late double opacity;
+
+  @override
+  void initState() {
+    super.initState();
+    opacity = 0.0;
+
+    Timer.run(() {
+      setState(() {
+        opacity = 1.0;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      opacity: opacity,
+      duration: const Duration(milliseconds: 400),
+      child: widget.child,
     );
   }
 }
@@ -73,12 +115,16 @@ class _TitleView extends StatelessWidget {
 
     return Row(
       children: [
-        Text(
-          title.trim(),
-          style: TextStyle(
-            color: themeProvider.primaryColor,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
+        // 창 너비가 좁을 때 overflow가 뜨는 대신 텍스트가 아래 줄로 넘어가게 하는 트릭.
+        // https://stackoverflow.com/questions/51930754/flutter-wrapping-text
+        Flexible(
+          child: Text(
+            title.trim(),
+            style: TextStyle(
+              color: themeProvider.primaryColor,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         IconButton(
