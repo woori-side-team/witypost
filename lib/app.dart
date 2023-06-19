@@ -49,7 +49,7 @@ final _router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
-      name: routeNames.post,
+      name: routeNames.home,
       path: '/',
       pageBuilder: (context, state) => _CustomPage(body: const PostsPage()),
     )

@@ -1,5 +1,5 @@
 class _RouteNames {
-  final post = 'post';
+  final home = 'home';
 }
 
 final routeNames = _RouteNames();

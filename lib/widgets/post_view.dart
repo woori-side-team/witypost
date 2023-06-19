@@ -44,7 +44,8 @@ class PostView extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          // 그냥 배경을 투명으로 하고 blurStyle을 outer로 하는게 더 깔끔하지만.. 이러면 HTML renderer랑 호환이 안됨.
+          color: themeProvider.backgroundColor,
           border: Border.all(
             color: themeProvider.primaryColor.withOpacity(0.4),
             width: 1,
@@ -53,7 +54,6 @@ class PostView extends StatelessWidget {
             BoxShadow(
               color: themeProvider.primaryColor.withOpacity(0.2),
               blurRadius: 6,
-              blurStyle: BlurStyle.outer,
             )
           ],
           borderRadius: BorderRadius.circular(8),
@@ -127,14 +127,19 @@ class _TitleView extends StatelessWidget {
             ),
           ),
         ),
-        IconButton(
-          onPressed: () async {
-            final urlInfo = Uri.parse(postUrl);
-            await launchUrl(urlInfo);
-          },
-          icon: const Icon(
-            Icons.open_in_new,
-            size: 16,
+        Material(
+          color: Colors.transparent,
+          shape: const CircleBorder(),
+          clipBehavior: Clip.hardEdge,
+          child: IconButton(
+            onPressed: () async {
+              final urlInfo = Uri.parse(postUrl);
+              await launchUrl(urlInfo);
+            },
+            icon: const Icon(
+              Icons.open_in_new,
+              size: 16,
+            ),
           ),
         )
       ],
