@@ -1,0 +1,37 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy_web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 최신 코드 받아오기
+        uses: actions/checkout@main
+
+      - name: 플러터 SDK 세팅
+        uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: 'stable'
+
+      - name: 배포 전 작업
+        run: |
+          dart run scripts/init.dart
+
+      - uses: actions/setup-node@v3
+      - uses: w9jds/setup-firebase@main
+        with:
+          tools-version: 12.4.0
+          firebase_token: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: 파이어베이스에 배포
+        run: |
+          firebase experiments:enable webframeworks
+          flutter clean
+          firebase deploy
