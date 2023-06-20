@@ -130,15 +130,16 @@ class _TitleView extends StatelessWidget {
         Material(
           color: Colors.transparent,
           shape: const CircleBorder(),
-          clipBehavior: Clip.hardEdge,
+          clipBehavior: Clip.antiAlias,
           child: IconButton(
             onPressed: () async {
               final urlInfo = Uri.parse(postUrl);
               await launchUrl(urlInfo);
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.open_in_new,
               size: 16,
+              color: themeProvider.primaryColor,
             ),
           ),
         )
