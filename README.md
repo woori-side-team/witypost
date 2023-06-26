@@ -12,15 +12,20 @@
 
 ## 개발 전 수행
 
-- `dart run scripts/init.dart`를 실행해주세요. 해당 스크립트는 아래의 명령들을 차례로 실행합니다.
-  - [Git hook](https://velog.io/@tjdgus0528/Git-hooks-%EC%9D%B4%EB%9E%80-Husky-lint-staged)들 설치: `git config --local core.hooksPath hooks`
-  - 의존성 설치: `flutter pub get`
+- `dart run scripts/init.dart`를 실행해주세요. 해당 스크립트는 아래 행동들을 합니다.
+  - [Git hook](https://velog.io/@tjdgus0528/Git-hooks-%EC%9D%B4%EB%9E%80-Husky-lint-staged)들 설치 (`git config --local core.hooksPath hooks`)
+  - 의존성 설치 (`flutter pub get`)
+  - 리소스들 읽어서 "lib/common/assets.dart" 생성
 
 ## 개발 시 실행
 
 - 안드로이드 스튜디오에서 `(web)`이라 들어간 것중 하나 고르고 재생 버튼 누르거나  
   ![studio](screenshot_run_studio.png)
 - 터미널에서 `flutter run -d chrome` 실행
+
+## 이미지 추가
+
+- "assets/images"에 아이콘 등을 추가하고 `dart run scripts/init.dart`를 실행해주세요. "lib/common/assets.dart"에 경로가 추가됩니다.
 
 ## 글 추가
 

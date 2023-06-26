@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:witypost/common/routes.dart';
 import 'package:witypost/providers/theme_provider.dart';
 import 'package:witypost/widgets/app_background.dart';
-import 'package:witypost/widgets/custom_app_bar.dart';
+import 'package:witypost/widgets/gnb.dart';
 import 'package:witypost/widgets/posts_page.dart';
 
 class App extends StatelessWidget {
@@ -32,7 +32,7 @@ class _ThemedContent extends StatelessWidget {
       fontFamily: 'Pretendard',
       scrollbarTheme: const ScrollbarThemeData().copyWith(
         thumbColor: MaterialStateProperty.all(
-          themeProvider.primaryColor.withOpacity(0.5),
+          themeProvider.neutral1000Color.withOpacity(0.5),
         ),
       ),
     );
@@ -73,7 +73,7 @@ class _CustomPage extends CustomTransitionPage {
                     color: Colors.transparent,
                     child: Column(
                       children: [
-                        const CustomAppBar(),
+                        const GNB(),
                         Expanded(
                           child:
                               FadeTransition(opacity: animation, child: body),
