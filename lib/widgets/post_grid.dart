@@ -5,12 +5,50 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:witypost/common/assets.dart';
 import 'package:witypost/common/posts.dart';
 import 'package:witypost/providers/theme_provider.dart';
+import 'package:witypost/widgets/scrollbar.dart';
 
-class PostGrid extends StatelessWidget {
+class PostGrid extends StatefulWidget {
   final String title;
   final String description;
 
   const PostGrid({super.key, required this.title, required this.description});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _PostGridState();
+  }
+}
+
+class _PostGridState extends State<PostGrid> {
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _moveScroll(double scale) {
+    _scrollController.animateTo(
+      _scrollController.position.extentBefore + 160 * scale,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
+
+  void _moveLeft() {
+    _moveScroll(-1);
+  }
+
+  void _moveRight() {
+    _moveScroll(1);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +62,7 @@ class PostGrid extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                     color: themeProvider.neutral1000Color,
                     fontSize: 28,
@@ -32,7 +70,7 @@ class PostGrid extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  description,
+                  widget.description,
                   style: TextStyle(
                     color: themeProvider.neutral600Color,
                     fontSize: 16,
@@ -42,18 +80,37 @@ class PostGrid extends StatelessWidget {
             ),
             const Spacer(),
             _GridButton(
-              onPressed: () {},
+              onPressed: _moveLeft,
               child: SvgPicture.asset(Assets.postGridPrev, width: 24),
             ),
             const SizedBox(width: 8),
             _GridButton(
-              onPressed: () {},
+              onPressed: _moveRight,
               child: SvgPicture.asset(Assets.postGridNext, width: 24),
             ),
           ],
         ),
         const SizedBox(height: 40),
-        _PostCard(postInfo: postInfos[0])
+        SizedBox(
+          height: 590,
+          child: NoScrollbar(
+            child: GridView.builder(
+              controller: _scrollController,
+              scrollDirection: Axis.horizontal,
+              physics: const ScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 24,
+                crossAxisSpacing: 24,
+                childAspectRatio: 253 / 328,
+                mainAxisExtent: 328,
+              ),
+              itemCount: postInfos.length,
+              itemBuilder: (gridContext, index) =>
+                  _PostCard(postInfo: postInfos[index]),
+            ),
+          ),
+        ),
       ],
     );
   }

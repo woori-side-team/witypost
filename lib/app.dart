@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,14 @@ class _ThemedContent extends StatelessWidget {
     );
 
     return MaterialApp.router(
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+          PointerDeviceKind.stylus,
+          PointerDeviceKind.unknown
+        },
+      ),
       title: 'wity',
       theme: customThemeData,
       routerConfig: _router,
@@ -71,13 +80,15 @@ class _CustomPage extends CustomTransitionPage {
                   // 배경이 앞쪽 widget들의 애니메이션을 가리는 현상이 있어, 앞쪽 widget들을 Material로 한번 감싸줌.
                   Material(
                     color: Colors.transparent,
+                    // GNB가 항상 제일 위에 그려지도록, 밑에서부터 거꾸로 쌓음.
                     child: Column(
+                      verticalDirection: VerticalDirection.up,
                       children: [
-                        const GNB(),
                         Expanded(
                           child:
                               FadeTransition(opacity: animation, child: body),
                         ),
+                        const GNB(),
                       ],
                     ),
                   )
