@@ -29,12 +29,17 @@ class _PostsPageState extends State<PostsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final windowSize = MediaQuery.of(context).size;
+    final sidePadding = windowSize.width <= 400 ? 0.0 : 24.0;
+
     // 스크롤바는 화면 오른쪽 끝에 있지만 실제로는 안쪽 내용물과 연동.
     return Scrollbar(
       controller: _scrollController,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(width: sidePadding),
           const SNB(),
           // 화면이 넓으면 지정 너비만큼, 좁으면 그냥 남은 너비 채우도록 하기.
           // Flexible + infinity + maxWidth
@@ -58,6 +63,7 @@ class _PostsPageState extends State<PostsPage> {
               ),
             ),
           ),
+          SizedBox(width: sidePadding),
         ],
       ),
     );

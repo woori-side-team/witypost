@@ -11,22 +11,36 @@ class GNB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final windowSize = MediaQuery.of(context).size;
+    final wrapChilds = windowSize.width <= 400;
 
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       alignment: Alignment.centerLeft,
-      height: 80,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 7),
       decoration: BoxDecoration(color: themeProvider.neutral0Color),
-      child: const Row(
-        children: [
-          _Logo(),
-          Spacer(),
-          _ThemeButton(),
-          SizedBox(width: 12),
-          _TalkButton()
-        ],
-      ),
+      child: wrapChilds
+          ? const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(children: [_Logo(), Spacer(), _ThemeButton()]),
+                SizedBox(height: 6),
+                Row(children: [
+                  SizedBox(width: 24),
+                  Expanded(child: _TalkButton()),
+                  SizedBox(width: 24)
+                ],),
+              ],
+            )
+          : const Row(
+              children: [
+                _Logo(),
+                Spacer(),
+                _ThemeButton(),
+                SizedBox(width: 12),
+                _TalkButton()
+              ],
+            ),
     );
   }
 }
@@ -38,32 +52,36 @@ class _Logo extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
 
+    // 모바일에서는 HTML renderer 사용하므로, 브라우저 제한에 따라 작은 폰트 표현 힘듬. 따라서 글자들을 큰 사이즈로 쓰고 축소하는 방법 사용.
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(Assets.gnbLogo, width: 100),
         const SizedBox(height: 4),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'WOORIDLE',
-              style: TextStyle(
-                fontSize: 6,
-                fontWeight: FontWeight.w700,
-                color: themeProvider.logoColor,
+        Image.asset(Assets.gnbLogo, width: 100),
+        Transform.scale(
+          scale: 0.5,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'WOORIDLE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: themeProvider.logoColor,
+                ),
               ),
-            ),
-            Text(
-              ' IT COMMUNITY',
-              style: TextStyle(
-                fontSize: 6,
-                fontWeight: FontWeight.w400,
-                color: themeProvider.logoColor,
+              Text(
+                ' IT COMMUNITY',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: themeProvider.logoColor,
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          ),
+        ),
       ],
     );
   }

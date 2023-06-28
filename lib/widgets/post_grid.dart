@@ -56,40 +56,47 @@ class _PostGridState extends State<PostGrid> {
 
     return Column(
       children: [
+        Stack(children: [
         Row(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.title,
-                  style: TextStyle(
-                    color: themeProvider.neutral1000Color,
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      color: themeProvider.neutral1000Color,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-                Text(
-                  widget.description,
-                  style: TextStyle(
-                    color: themeProvider.neutral600Color,
-                    fontSize: 16,
+                  Text(
+                    widget.description,
+                    style: TextStyle(
+                      color: themeProvider.neutral600Color,
+                      fontSize: 16,
+                    ),
                   ),
-                )
-              ],
-            ),
-            const Spacer(),
-            _GridButton(
-              onPressed: _moveLeft,
-              child: SvgPicture.asset(Assets.postGridPrev, width: 24),
-            ),
-            const SizedBox(width: 8),
-            _GridButton(
-              onPressed: _moveRight,
-              child: SvgPicture.asset(Assets.postGridNext, width: 24),
+                ],
+              ),
             ),
           ],
         ),
+        Positioned(
+            right: 0,
+            child: Row(children: [
+          _GridButton(
+            onPressed: _moveLeft,
+            child: SvgPicture.asset(Assets.postGridPrev, width: 24),
+          ),
+          const SizedBox(width: 8),
+          _GridButton(
+            onPressed: _moveRight,
+            child: SvgPicture.asset(Assets.postGridNext, width: 24),
+          ),
+        ],),)
+        ],),
         const SizedBox(height: 40),
         SizedBox(
           height: 590,
