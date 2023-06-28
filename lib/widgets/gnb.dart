@@ -10,17 +10,21 @@ class GNB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final themeProvider = context.watch<ThemeProvider>();
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
       alignment: Alignment.centerLeft,
       height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Row(
+      decoration: BoxDecoration(color: themeProvider.neutral0Color),
+      child: const Row(
         children: [
-          const _Logo(),
-          Expanded(child: Container()),
-          const _ThemeButton(),
-          const SizedBox(width: 12),
-          const _TalkButton()
+          _Logo(),
+          Spacer(),
+          _ThemeButton(),
+          SizedBox(width: 12),
+          _TalkButton()
         ],
       ),
     );
@@ -83,15 +87,20 @@ class _ThemeButton extends StatelessWidget {
       iconPath = Assets.gnbDark;
     }
 
-    return IconButton(
-      onPressed: () {
-        themeProvider.themeMode = nextThemeMode;
-      },
-      icon: SvgPicture.asset(
-        iconPath,
-        width: 24,
-        colorFilter:
-            ColorFilter.mode(themeProvider.neutral1100Color, BlendMode.srcIn),
+    return Material(
+      color: Colors.transparent,
+      shape: const CircleBorder(),
+      clipBehavior: Clip.antiAlias,
+      child: IconButton(
+        onPressed: () {
+          themeProvider.themeMode = nextThemeMode;
+        },
+        icon: SvgPicture.asset(
+          iconPath,
+          width: 24,
+          colorFilter:
+              ColorFilter.mode(themeProvider.neutral1100Color, BlendMode.srcIn),
+        ),
       ),
     );
   }
@@ -112,10 +121,10 @@ class _TalkButton extends StatelessWidget {
         launchUrl(_talkURLInfo);
       },
       style: ElevatedButton.styleFrom(
-          backgroundColor: themeProvider.neutral1100Color,
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(54)),),
+        backgroundColor: themeProvider.neutral1100Color,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(54)),
+      ),
       child: Text(
         '오픈카톡 참여하기',
         style: TextStyle(
