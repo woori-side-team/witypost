@@ -9,7 +9,9 @@ import 'package:html_unescape/html_unescape.dart';
 final _unescape = HtmlUnescape();
 
 int getUnixTime() {
-  return DateTime.now().millisecondsSinceEpoch;
+  return DateTime
+      .now()
+      .millisecondsSinceEpoch;
 }
 
 String valueToRawString<T>(T? value) {
@@ -55,12 +57,14 @@ class PostInfo {
   final String? title;
   final String? description;
   final String? imageUrl;
+  final List<String> tags;
   
   const PostInfo({
     required this.postUrl,
     required this.title,
     required this.description,
     required this.imageUrl,
+    required this.tags,
   });
 }
 
@@ -78,6 +82,7 @@ const List<PostInfo> postInfos = [
     final postTitle = postInput['title'] ?? postMetadata?.title;
     final postDescription = postMetadata?.description;
     String? postImageUrl = null;
+    YamlList postTags = postInput['tags'] ?? [];
 
     // Flutter web에서는 일부 경우 (ex. CanvasKit 렌더러 사용할 경우) 이미지 URL의 출처(origin)가 현 페이지와 다르면 CORS 에러를 겪게 됩니다.
     // 따라서 이미지를 다운로드하여 플젝 폴더에 저장하고 그 경로를 URL로 대신 사용합니다.
@@ -106,6 +111,7 @@ const List<PostInfo> postInfos = [
     title: ${valueToRawString(postTitle)},
     description: ${valueToRawString(postDescription)},
     imageUrl: ${valueToRawString(postImageUrl)},
+    tags: [${postTags.map((tag) => '\'$tag\'').join(', ')}],
   ),
 ''', mode: FileMode.append);
   }

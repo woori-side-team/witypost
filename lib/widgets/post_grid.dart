@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -69,6 +71,7 @@ class _PostGridState extends State<PostGrid> {
                         style: TextStyle(
                           color: themeProvider.neutral1000Color,
                           fontSize: 28,
+                          height: 33.0 / 28.0,
                           fontWeight: FontWeight.w700,
                         ),
                       ),
@@ -77,6 +80,7 @@ class _PostGridState extends State<PostGrid> {
                         style: TextStyle(
                           color: themeProvider.neutral600Color,
                           fontSize: 16,
+                          height: 19.0 / 16.0,
                         ),
                       ),
                     ],
@@ -175,7 +179,10 @@ class _PostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
+    final title = postInfo.title ?? 'Post';
+    final description = postInfo.description ?? '';
     final imageUrl = postInfo.imageUrl;
+    final tags = postInfo.tags.sublist(0, min(postInfo.tags.length, 3));
 
     return SizedBox(
       width: 328,
@@ -183,6 +190,7 @@ class _PostCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
+            clipBehavior: Clip.antiAlias,
             borderRadius: BorderRadius.circular(12),
             child: Container(
               height: 200,
@@ -206,6 +214,21 @@ class _PostCard extends StatelessWidget {
                       color: Colors.transparent,
                       child: InkWell(onTap: _openPost),
                     ),
+                  ),
+                  // 태그 카드는 다크 모드로 하면 잘 안 보여서, 라이트 모드로 고정.
+                  ChangeNotifierProvider(
+                    create: (providerContext) =>
+                        ThemeProvider(initialThemeMode: CustomThemeMode.light),
+                    child: Positioned(
+                      left: 10,
+                      bottom: 14,
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 8,
+                        children:
+                            tags.map((tag) => _TagButton(tag: tag)).toList(),
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -217,7 +240,7 @@ class _PostCard extends StatelessWidget {
             child: GestureDetector(
               onTap: _openPost,
               child: Text(
-                postInfo.title ?? 'Post',
+                title,
                 maxLines: 2,
                 style: TextStyle(
                   color: themeProvider.neutral1000Color,
@@ -231,7 +254,7 @@ class _PostCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            postInfo.description ?? '',
+            description,
             style: TextStyle(
               color: themeProvider.neutral600Color,
               height: 17.0 / 14.0,
@@ -240,6 +263,34 @@ class _PostCard extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class _TagButton extends StatelessWidget {
+  final String tag;
+
+  const _TagButton({required this.tag});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = context.watch<ThemeProvider>();
+
+    return Container(
+      alignment: Alignment.center,
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: const BoxDecoration(
+        color: Color.fromRGBO(247, 248, 249, 0.5),
+      ),
+      child: Text(
+        '#$tag',
+        style: TextStyle(
+          color: themeProvider.neutral1100Color,
+          fontSize: 17,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }

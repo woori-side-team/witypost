@@ -15,7 +15,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (providersContext) => ThemeProvider())
+        ChangeNotifierProvider(
+          create: (providersContext) =>
+              ThemeProvider(initialThemeMode: CustomThemeMode.light),
+        )
       ],
       child: const _ThemedContent(),
     );

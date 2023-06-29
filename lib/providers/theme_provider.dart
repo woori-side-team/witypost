@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 enum CustomThemeMode { light, dark }
 
 class ThemeProvider with ChangeNotifier {
-  CustomThemeMode _themeMode = CustomThemeMode.light;
+  late CustomThemeMode _themeMode;
+
+  ThemeProvider({required CustomThemeMode initialThemeMode}) {
+    _themeMode = initialThemeMode;
+  }
 
   CustomThemeMode get themeMode => _themeMode;
 

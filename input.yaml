@@ -2,15 +2,39 @@
 # 글 링크(url)를 추가하고 update.dart를 실행해주세요.
 # 제목, 이미지, 설명은 글에서 자동 추출됩니다. 제목을 직접 붙이고 싶으면 url 아래에 title을 추가해주세요.
 posts:
-  - url: https://zero-base.co.kr/event/media_BE_school_roadmap
-  - url: https://www.codestates.com/blog/content/프론트엔드-개발자-로드맵
   - url: https://euncho.medium.com/프론트엔드-학습-로드맵-91c3bc11dec0
+    tags: [프론트엔드, 진로, 로드맵]
+  - url: https://zero-base.co.kr/event/media_BE_school_roadmap
+    tags: [백엔드, 진로, 로드맵]
   - url: https://zero-base.co.kr/event/media_insight_contents_BE_front_back
+    tags: [프론트엔드, 백엔드, 진로]
   - url: https://engineering.linecorp.com/ko/blog/things-i-prepared-to-be-a-line-server-developer
+    tags: [백엔드, 진로]
   - url: https://www.elancer.co.kr/blog/view?seq=81
+    tags: [진로, 인터뷰]
   - url: https://eopla.net/magazines/14
     title: 비전공자가 배달의 민족 리드 개발자가 되기까지
+    tags: [진로, 인터뷰]
+  - url: https://wikidocs.net/51
+    title: 파이썬 맛보기
+    tags: [파이썬, 기술]
   - url: https://poiemaweb.com/html5-syntax
+    tags: [프론트엔드, 기술, HTML]
   - url: https://poiemaweb.com/css3-syntax
+    tags: [프론트엔드, 기술, CSS]
   - url: https://react.vlpt.us/
+    tags: [프론트엔드, 기술, React]
   - url: https://velog.io/@velopert/react-hooks
+    tags: [프론트엔드, 기술, React]
+  - url: https://coding-groot.tistory.com/32
+    tags: [게임, 기술, Unity]
+  - url: https://docs.unrealengine.com/4.27/ko/ProgrammingAndScripting/ProgrammingWithCPP/IntroductionToCPP/
+    tags: [게임, 기술, Unreal]
+  - url: https://realmojo.tistory.com/300
+    tags: [프론트엔드, 진로, 면접]
+  - url: https://velog.io/@arthur/지금까지-받았던-신입-프론트엔드-면접-질문들
+    tags: [프론트엔드, 진로, 면접]
+  - url: https://zero-base.co.kr/event/media_BE_school_qna
+    tags: [백엔드, 진로, 면접]
+  - url: https://github.com/ksundong/backend-interview-question
+    tags: [백엔드, 진로, 면접]
