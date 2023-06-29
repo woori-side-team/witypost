@@ -30,7 +30,7 @@ class _PostsPageState extends State<PostsPage> {
   @override
   Widget build(BuildContext context) {
     final windowSize = MediaQuery.of(context).size;
-    final sidePadding = windowSize.width <= 400 ? 0.0 : 24.0;
+    final hideSNB = windowSize.width <= 700 || windowSize.height <= 500;
 
     // 스크롤바는 화면 오른쪽 끝에 있지만 실제로는 안쪽 내용물과 연동.
     return Scrollbar(
@@ -39,8 +39,7 @@ class _PostsPageState extends State<PostsPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: sidePadding),
-          const SNB(),
+          ...(hideSNB ? [] : [const SizedBox(width: 24), const SNB()]),
           // 화면이 넓으면 지정 너비만큼, 좁으면 그냥 남은 너비 채우도록 하기.
           // Flexible + infinity + maxWidth
           // https://stackoverflow.com/a/69899586
@@ -49,21 +48,23 @@ class _PostsPageState extends State<PostsPage> {
               width: double.infinity,
               height: double.infinity,
               constraints: const BoxConstraints(maxWidth: 900),
-              padding: const EdgeInsets.only(top: 60, bottom: 60, left: 24),
+              padding: const EdgeInsets.symmetric(horizontal: 24),
               child: NoScrollbar(
                 child: SingleChildScrollView(
                   controller: _scrollController,
                   clipBehavior: Clip.none,
                   child: const Column(
                     children: [
-                      PostGrid(title: '온보딩', description: '첫 발을 떼는 당신에게 도움되는 글')
+                      SizedBox(height: 60),
+                      PostGrid(
+                          title: '온보딩', description: '첫 발을 떼는 당신에게 도움되는 글',),
+                      SizedBox(height: 60),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(width: sidePadding),
         ],
       ),
     );

@@ -10,44 +10,41 @@ class SNB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
-    final windowSize = MediaQuery.of(context).size;
-
-    if (windowSize.width <= 700 || windowSize.height <= 500) {
-      return Container();
-    }
 
     return Container(
       height: 400,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
       decoration: BoxDecoration(
-          border: Border(
-              right:
-                  BorderSide(width: 1, color: themeProvider.neutral300Color),),),
+        border: Border(
+          right: BorderSide(width: 1, color: themeProvider.neutral300Color),
+        ),
+      ),
       child: SizedBox(
         width: 244,
         child: Column(
           children: [
             Container(
-                height: 56,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                  color: themeProvider.neutral0Color,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Row(
-                  children: [
-                    Text(
-                      '온보딩에 읽기 좋은 글',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: themeProvider.neutral1000Color,
-                      ),
+              height: 56,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: themeProvider.neutral0Color,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    '온보딩에 읽기 좋은 글',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: themeProvider.neutral1000Color,
                     ),
-                    const Spacer(),
-                    SvgPicture.asset(Assets.snbNext, width: 24)
-                  ],
-                ),),
+                  ),
+                  const Spacer(),
+                  SvgPicture.asset(Assets.snbNext, width: 24)
+                ],
+              ),
+            ),
             const SizedBox(height: 56),
             _MenuButton(label: '디자이너', onPressed: () {}),
             _MenuButton(label: '기획자', onPressed: () {}),
