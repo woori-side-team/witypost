@@ -194,12 +194,13 @@ class _PostCard extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  imageUrl == null
-                      ? Container()
-                      : Image(
-                          image: AssetImage(imageUrl),
-                          width: double.infinity,
-                        ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: imageUrl == null
+                        ? Container()
+                        : Image(image: AssetImage(imageUrl), fit: BoxFit.cover),
+                  ),
                   Positioned.fill(
                     child: Material(
                       color: Colors.transparent,
@@ -217,11 +218,13 @@ class _PostCard extends StatelessWidget {
               onTap: _openPost,
               child: Text(
                 postInfo.title ?? 'Post',
+                maxLines: 2,
                 style: TextStyle(
                   color: themeProvider.neutral1000Color,
                   height: 20.0 / 17.0,
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ),

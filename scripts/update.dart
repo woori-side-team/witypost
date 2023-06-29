@@ -4,6 +4,9 @@ import 'package:yaml/yaml.dart';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:metadata_fetch/metadata_fetch.dart';
+import 'package:html_unescape/html_unescape.dart';
+
+final _unescape = HtmlUnescape();
 
 int getUnixTime() {
   return DateTime.now().millisecondsSinceEpoch;
@@ -11,7 +14,8 @@ int getUnixTime() {
 
 String valueToRawString<T>(T? value) {
   if (value != null) {
-    return "'''$value'''";
+    final valueString = _unescape.convert('$value').replaceAll('\n', ' ');
+    return "'''$valueString'''";
   } else {
     return 'null';
   }
