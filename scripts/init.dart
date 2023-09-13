@@ -33,7 +33,9 @@ void _generateAssetsClass() {
     memberLines.add("static const String $variableName = '$path';");
   }
 
-  final code = '''class Assets {
+  final code = '''// 이 파일은 자동으로 생성됩니다.
+
+class Assets {
 ${memberLines.map((line) => '  $line').join('\n')}
 }
 ''';
